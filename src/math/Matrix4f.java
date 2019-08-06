@@ -88,17 +88,17 @@ public class Matrix4f {
 	
 	//Creates and returns a projection matrix
 	public static Matrix4f projection(float fov, float aspect, float near, float far) {
-		Matrix4f result = identity();
+		Matrix4f result = Matrix4f.identity();
 		
-		float tanFOV = (float)Math.tan(fov/2);
-		float range = far-near;
+		float tanFOV = (float) Math.tan(Math.toRadians(fov / 2));
+		float range = far - near;
 		
-		result.set(0, 0, 1.0f/(aspect*tanFOV));
-		result.set(1,1, 1.0f/tanFOV);
-		result.set(2,2, -(far + near)/range);
+		result.set(0, 0, 1.0f / (aspect * tanFOV));
+		result.set(1, 1, 1.0f / tanFOV);
+		result.set(2, 2, -((far + near) / range));
 		result.set(2, 3, -1.0f);
-		result.set(3, 2, -(2*far*near)/range);
-		result.set(3, 3, 0f);
+		result.set(3, 2, -((2 * far * near) / range));
+		result.set(3, 3, 0.0f);
 		
 		return result;
 	}
@@ -130,6 +130,21 @@ public class Matrix4f {
 								 get(i, 1)*other.get(1, j) +
 								 get(i, 2)*other.get(2, j) +
 								 get(i, 3)*other.get(3, j));
+			}
+		}
+		
+		return result;
+	}
+	
+	public static Matrix4f multiply(Matrix4f m1, Matrix4f m2) {
+		Matrix4f result = Matrix4f.identity();
+		
+		for(int i = 0; i < SIZE; i++) {
+			for(int j = 0; j < SIZE; j++) {
+				result.set(i, j, m1.get(i, 0)*m2.get(0, j) +
+								 m1.get(i, 1)*m2.get(1, j) +
+								 m1.get(i, 2)*m2.get(2, j) +
+								 m1.get(i, 3)*m2.get(3, j));
 			}
 		}
 		

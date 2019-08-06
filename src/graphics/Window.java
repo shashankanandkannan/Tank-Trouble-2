@@ -23,7 +23,7 @@ public class Window {
 	private int height; //TODO make resizable
 	private int width;
 	private Matrix4f projection;
-	private float fov = 20;
+	private float fov = 90;
 	private float near = 0.1f;
 	private float far = 1000;
 	
@@ -102,6 +102,8 @@ public class Window {
 
 		// Make the window visible
 		glfwShowWindow(window);
+		
+		glEnable(GL_DEPTH_TEST);   
 		
 		GL11.glViewport(0, 0, width, height);
 		

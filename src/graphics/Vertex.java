@@ -13,11 +13,18 @@ public class Vertex {
 		this.textureCoord = textureCoord;
 	}
 	
-	/*
+	
 	public Vertex(Vector3f position, Vector2f textureCoord) {
 		this.position = position;
+		colour = new Vector3f(0,0,0);
 		this.textureCoord = textureCoord;
-	}*/
+	}
+	
+	public Vertex(Vector3f position) {
+		this.position = position;
+		colour = new Vector3f(0,0,0);
+		textureCoord = new Vector2f(0, 0); //TODO: Maybe remove the default? Check what happens with it later
+	}
 	
 	public Vector3f getPosition() {
 		return position;

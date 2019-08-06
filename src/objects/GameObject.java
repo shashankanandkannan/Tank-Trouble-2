@@ -17,11 +17,11 @@ public class GameObject {
 
 	public void update() { //Temporary, remove later
 		temp += 0.02;
-		//position.setX((float)Math.sin(temp));
+		position.setX((float)Math.sin(temp));
 		//rotation.set((float)Math.sin(temp) * 360, (float)Math.sin(temp) * 360, (float)Math.sin(temp) * 360);
 		//rotation.set(temp, 0, 0);
 		//scale.set((float)Math.sin(temp), (float)Math.sin(temp), (float)Math.sin(temp));
-		position.setX(temp);
+		//position.setX(temp);
 	}
 	
 	public Vector3f getPosition() {

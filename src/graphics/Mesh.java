@@ -21,6 +21,11 @@ public class Mesh {
 		this.material = material;
 	}
 	
+	public Mesh(Vertex[] vertices, int[] indices) {
+		this.vertices = vertices;
+		this.indices = indices;
+	}
+	
 	//Creates the buffers
 	public void create() {
 		material.create();
@@ -33,7 +38,7 @@ public class Mesh {
 		float[] positionData = new float[vertices.length*3];
 		
 		for(int i = 0; i < vertices.length; i++) {
-			positionData[i*3] = vertices[i].getPosition().getX();
+			positionData[i*3]     = vertices[i].getPosition().getX();
 			positionData[i*3 + 1] = vertices[i].getPosition().getY();
 			positionData[i*3 + 2] = vertices[i].getPosition().getZ();
 		}
@@ -132,6 +137,10 @@ public class Mesh {
 	
 	public Material getMaterial() {
 		return material;
+	}
+	
+	public void setMaterial(Material material) {
+		this.material = material;
 	}
 	
 }

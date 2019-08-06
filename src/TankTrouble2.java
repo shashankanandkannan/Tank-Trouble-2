@@ -28,7 +28,7 @@ public class TankTrouble2 implements Runnable{
 	
 	public GameObject object; 
 	
-	public Camera camera = new Camera(new Vector3f(0,0,1), new Vector3f(0,0,0));
+	public Camera camera = new Camera(new Vector3f(0,0,2), new Vector3f(0,0,0));
 	
 	public void run() {
 		
@@ -65,7 +65,7 @@ public class TankTrouble2 implements Runnable{
 		tank2.setTopColour(0.6f, 0, 0);
 		*/
 		
-		Mesh testMesh =  new Mesh(
+		/*Mesh testMesh =  new Mesh(
 				new Vertex[] {
 						new Vertex(new Vector3f(-0.5f, 0.5f, 0.0f), new Vector3f(1.0f, 1.0f, 0.0f), new Vector2f(0, 0)),
 						new Vertex(new Vector3f(-0.5f, -0.5f, 0.0f), new Vector3f(0.0f, 1.0f, 0.0f), new Vector2f(0, 1)),
@@ -78,18 +78,85 @@ public class TankTrouble2 implements Runnable{
 				},
 				
 				//new Material("/TankTrouble2/bin/TitleImage4.jpg")
-				new Material("guy2.png")
-		);
-		testMesh.create();
+				new Material("guy3.png")
+		);*/
 		
-		object = new GameObject(new Vector3f(0, 0, 0), new Vector3f(0, 0, 0), new Vector3f(1, 1, 1), testMesh);
+		
+		Mesh testMesh = new Mesh(new Vertex[] {
+				//Back face
+				new Vertex(new Vector3f(-0.5f,  0.5f, -0.5f), new Vector2f(0.0f, 0.0f)),
+				new Vertex(new Vector3f(-0.5f, -0.5f, -0.5f), new Vector2f(0.0f, 1.0f)),
+				new Vertex(new Vector3f( 0.5f, -0.5f, -0.5f), new Vector2f(1.0f, 1.0f)),
+				new Vertex(new Vector3f( 0.5f,  0.5f, -0.5f), new Vector2f(1.0f, 0.0f)),
+				
+				//Front face
+				new Vertex(new Vector3f(-0.5f,  0.5f,  0.5f), new Vector2f(0.0f, 0.0f)),
+				new Vertex(new Vector3f(-0.5f, -0.5f,  0.5f), new Vector2f(0.0f, 1.0f)),
+				new Vertex(new Vector3f( 0.5f, -0.5f,  0.5f), new Vector2f(1.0f, 1.0f)),
+				new Vertex(new Vector3f( 0.5f,  0.5f,  0.5f), new Vector2f(1.0f, 0.0f)),
+				
+				//Right face
+				new Vertex(new Vector3f( 0.5f,  0.5f, -0.5f), new Vector2f(0.0f, 0.0f)),
+				new Vertex(new Vector3f( 0.5f, -0.5f, -0.5f), new Vector2f(0.0f, 1.0f)),
+				new Vertex(new Vector3f( 0.5f, -0.5f,  0.5f), new Vector2f(1.0f, 1.0f)),
+				new Vertex(new Vector3f( 0.5f,  0.5f,  0.5f), new Vector2f(1.0f, 0.0f)),
+				
+				//Left face
+				new Vertex(new Vector3f(-0.5f,  0.5f, -0.5f), new Vector2f(0.0f, 0.0f)),
+				new Vertex(new Vector3f(-0.5f, -0.5f, -0.5f), new Vector2f(0.0f, 1.0f)),
+				new Vertex(new Vector3f(-0.5f, -0.5f,  0.5f), new Vector2f(1.0f, 1.0f)),
+				new Vertex(new Vector3f(-0.5f,  0.5f,  0.5f), new Vector2f(1.0f, 0.0f)),
+				
+				//Top face
+				new Vertex(new Vector3f(-0.5f,  0.5f,  0.5f), new Vector2f(0.0f, 0.0f)),
+				new Vertex(new Vector3f(-0.5f,  0.5f, -0.5f), new Vector2f(0.0f, 1.0f)),
+				new Vertex(new Vector3f( 0.5f,  0.5f, -0.5f), new Vector2f(1.0f, 1.0f)),
+				new Vertex(new Vector3f( 0.5f,  0.5f,  0.5f), new Vector2f(1.0f, 0.0f)),
+				
+				//Bottom face
+				new Vertex(new Vector3f(-0.5f, -0.5f,  0.5f), new Vector2f(0.0f, 0.0f)),
+				new Vertex(new Vector3f(-0.5f, -0.5f, -0.5f), new Vector2f(0.0f, 1.0f)),
+				new Vertex(new Vector3f( 0.5f, -0.5f, -0.5f), new Vector2f(1.0f, 1.0f)),
+				new Vertex(new Vector3f( 0.5f, -0.5f,  0.5f), new Vector2f(1.0f, 0.0f)),
+		}, new int[] {
+				//Back face
+				0, 1, 3,	
+				3, 1, 2,	
+				
+				//Front face
+				4, 5, 7,
+				7, 5, 6,
+				
+				//Right face
+				8, 9, 11,
+				11, 9, 10,
+				
+				//Left face
+				12, 13, 15,
+				15, 13, 14,
+				
+				//Top face
+				16, 17, 19,
+				19, 17, 18,
+				
+				//Bottom face
+				20, 21, 23,
+				23, 21, 22
+		}, new Material("square.jpg"));
+		
+		Mesh tankMesh = OBJReader.read("TriTank.obj", 1);
+		
+		
+		testMesh.create();
+			
+		object = new GameObject(new Vector3f(1f, 1f, -1f), new Vector3f(0, 0, 0), new Vector3f(1, 1, 1), testMesh);
 		
 		
 		while ( !window.windowShouldClose() ) {
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
 			
-			//object.update();
-			
+			object.update();
+		
 			/*loopStartTime = getTime();
 			elapsed = loopStartTime - prevTime;
 			prevTime = getTime();
