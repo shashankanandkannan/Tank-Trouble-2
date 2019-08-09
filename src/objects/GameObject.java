@@ -4,8 +4,8 @@ import javax.vecmath.Vector3f;
 import graphics.Mesh;
 
 public class GameObject {
-	private Vector3f position, rotation, scale;
-	private Mesh mesh;
+	protected Vector3f position, rotation, scale;
+	protected Mesh mesh;
 	private float temp = 0;
 	
 	public GameObject(Vector3f position, Vector3f rotation, Vector3f scale, Mesh mesh) {
@@ -13,6 +13,12 @@ public class GameObject {
 		this.rotation = rotation;
 		this.scale = scale;
 		this.mesh = mesh;
+	}
+	
+	public GameObject(Vector3f position, Vector3f rotation, Vector3f scale) {
+		this.position = position;
+		this.rotation = rotation;
+		this.scale = scale;
 	}
 
 	public void update() { //Temporary, remove later

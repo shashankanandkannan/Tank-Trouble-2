@@ -1,3 +1,4 @@
+package objects;
 /*
  * Author: Shashank Anand
  * Teacher: Mr. Radulovic
@@ -6,12 +7,9 @@
  * This class also contains the wall layout, which I was hoping to change to be either like a maze or with a few blocks in the centre. 
  * However, I did not have time to implement this feature.
  */
-
-import graphics.*;
-
-
 public class Wall {
 	
+	private static Model model;
 	private static final float SCALEFACTOR = 10;
 	private static final float WALLWIDTH = 0.2f;
 	
@@ -19,13 +17,11 @@ public class Wall {
 	
 	private static Wall[][] map;
 	
-	Mesh mesh;
-	
 	private float xpos;	//xpos and ypos are measured from the centre of the object
 	private float ypos; 
 	
 	public Wall(float x, float y) {
-		mesh = OBJReader.read("resources/Wall.obj", SCALEFACTOR);
+		model = OBJReader.read("resources/Wall.obj", SCALEFACTOR);
 		
 		xpos = x;
 		ypos = y;
@@ -43,6 +39,9 @@ public class Wall {
 		}
 	}
 	
+	public static Model getModel() {
+		return model;
+	}
 
 	public static float getScalefactor() {
 		return SCALEFACTOR;

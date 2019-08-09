@@ -36,8 +36,13 @@ public class Renderer {
 	}
 	
 	public void renderMesh(GameObject object, Camera camera) {
-
+		
 		Mesh mesh = object.getMesh();
+		
+		if (mesh == null) {
+			System.err.println("Mesh object is null");
+			return;
+		}
 		
 		GL30.glBindVertexArray(mesh.getVAO());
 		GL30.glEnableVertexAttribArray(0);

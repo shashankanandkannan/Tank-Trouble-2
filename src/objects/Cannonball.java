@@ -1,3 +1,4 @@
+package objects;
 import java.awt.geom.GeneralPath;
 import graphics.Model;
 
