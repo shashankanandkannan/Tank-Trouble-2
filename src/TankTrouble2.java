@@ -29,7 +29,7 @@ public class TankTrouble2 implements Runnable{
 	public Tank tank1;
 	
 	public Camera camera = new Camera(new Vector3f(0,0,2), new Vector3f(0,0,0));
-	public GameObject object = new GameObject(new Vector3f(0.5f,0,-2), new Vector3f(0,0,0), new Vector3f(1,1,1), 
+	public GameObject object = new GameObject(new Vector3f(0f,0,0), new Vector3f(0,0,0), new Vector3f(1,1,1), 
 			
 			new Mesh(new Vertex[] {
 			//Temporary mesh - cube
@@ -150,7 +150,7 @@ public class TankTrouble2 implements Runnable{
 		while ( !window.windowShouldClose() ) {
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
 			
-			//object.update();
+			//tank1.update();
 			gameUpdate();
 			GL11.glClearColor(1.0f, 0f, 0f, 1.0f);
 			render();

@@ -8,6 +8,7 @@ import graphics.Material;
 import graphics.Mesh;
 import graphics.OBJReader;
 import graphics.Vertex;
+import math.Matrix4f;
 import utils.LinkedList;
 
 /*
@@ -19,7 +20,7 @@ import utils.LinkedList;
 
 public class Tank extends GameObject{
 
-	private static final float SPEED = 0.01f;
+	private static final float SPEED = 0.1f;
 	private static final float TURNINGSPEED = 0.075f;
 	
 	public float direction; 							  //Direction = 0 means the tank is pointed to the right	
@@ -120,13 +121,15 @@ public class Tank extends GameObject{
 		if (!(Math.sin(direction) < 0 && collisions[3]) && !(Math.sin(direction) > 0 && collisions[2]))
 			position.y += SPEED*Math.sin(direction);*/
 		
-		float newx = (float) (position.x + SPEED*Math.cos(direction));
-		float newy = (float) (position.y + SPEED*Math.sin(direction));
+		float newx = (float) (position.x + SPEED*Math.cos(rotation.z));
+		float newy = (float) (position.y + SPEED*Math.sin(rotation.z));
 		
 		//boolean[] collisions = moveCollisionCheck(newx, newy);
 		
 		position.x = newx;
 		position.y = newy;
+		
+		System.out.println(newx + ", " + newy);
 		
 	
 	}
@@ -140,22 +143,27 @@ public class Tank extends GameObject{
 //		if (!(Math.sin(direction) > 0 && collisions[3]) && !(Math.sin(direction) < 0 && collisions[2]))
 //			position.y -= SPEED*Math.sin(direction);
 		
-		float newx = (float) (position.x - SPEED*Math.cos(direction));
-		float newy = (float) (position.y - SPEED*Math.sin(direction));
+		//float newx = (float) (position.x - SPEED*Math.cos(rotation.z));
+		//float newy = (float) (position.y - SPEED*Math.sin(rotation.z));
 		
-		position.x = newx;
-		position.y = newy;
+		//position.x = newx;
+		//position.y = newy;
+		
+		position.x -= SPEED*Math.cos(rotation.z);
+		position.y -= SPEED*Math.sin(rotation.z);
 	}
 	
 	public void turnRight() {
 		
-			direction = direction%(2*(float)Math.PI) - TURNINGSPEED;
+			rotation.z = (rotation.z)%(2*(float)Math.PI) - TURNINGSPEED;
+			//System.out.println(Matrix4f.rotate(rotation.z, new Vector3f(0, 0, 1)).toString());
 	}
 	
 	public void turnLeft() {
 
-		direction = direction%(2*(float)Math.PI) + TURNINGSPEED;
-
+		rotation.z = (rotation.z)%(2*(float)Math.PI) + TURNINGSPEED;
+		//System.out.println(Matrix4f.rotate(rotation.z, new Vector3f(0, 0, 1)).toString());
+		
 	}
 	
 //	

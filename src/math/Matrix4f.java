@@ -42,19 +42,19 @@ public class Matrix4f {
 	public static Matrix4f rotate(float angle, Vector3f axis) {
 		Matrix4f result = Matrix4f.identity();
 		
-		float cos = (float) Math.cos(Math.toRadians(angle));
-		float sin = (float) Math.sin(Math.toRadians(angle));
+		float cos = (float) Math.cos(angle);
+		float sin = (float) Math.sin(angle);
 		float C = 1 - cos;
 		
-		result.set(0, 0, cos + axis.getX()*axis.getX()*C);
-		result.set(0, 1, axis.getX()*axis.getY() * C - axis.getZ() * sin);
-		result.set(0, 2, axis.getX()*axis.getZ() * C + axis.getY() * sin);
-		result.set(1, 0, axis.getX()*axis.getY() * C + axis.getZ() * sin);
-		result.set(1, 1, cos + axis.getY()*axis.getY()*C);
-		result.set(1, 2, axis.getY()*axis.getZ() * C - axis.getX() * sin);
-		result.set(2, 0, axis.getX()*axis.getZ() * C - axis.getY() * sin);
-		result.set(2, 1, axis.getY()*axis.getZ() * C + axis.getX() * sin);
-		result.set(2, 2, cos + axis.getZ()*axis.getZ()*C);
+		result.set(0, 0, cos + axis.getX() * axis.getX() * C);
+		result.set(0, 1, axis.getX() * axis.getY() * C - axis.getZ() * sin);
+		result.set(0, 2, axis.getX() * axis.getZ() * C + axis.getY() * sin);
+		result.set(1, 0, axis.getY() * axis.getX() * C + axis.getZ() * sin);
+		result.set(1, 1, cos + axis.getY() * axis.getY() * C);
+		result.set(1, 2, axis.getY() * axis.getZ() * C - axis.getX() * sin);
+		result.set(2, 0, axis.getZ() * axis.getX() * C - axis.getY() * sin);
+		result.set(2, 1, axis.getZ() * axis.getY() * C + axis.getX() * sin);
+		result.set(2, 2, cos + axis.getZ() * axis.getZ() * C);
 		
 		return result;
 	}
@@ -76,12 +76,14 @@ public class Matrix4f {
 		Matrix4f translationMatrix = Matrix4f.translate(position);
 		Matrix4f rotXMatrix = Matrix4f.rotate(rotation.getX(), new Vector3f(1, 0, 0));
 		Matrix4f rotYMatrix = Matrix4f.rotate(rotation.getY(), new Vector3f(0, 1, 0));
-		Matrix4f rotZMatrix = Matrix4f.rotate(rotation.getZ(), new Vector3f(0, 0, 1));
+		Matrix4f rotZMatrix = Matrix4f.rotate(rotation.getZ(), new Vector3f(0, 0, -1));
 		Matrix4f scaleMatrix = Matrix4f.scale(scale);
 		
 		Matrix4f rotationMatrix = rotXMatrix.multiply(rotYMatrix.multiply(rotZMatrix));
 		
-		result = translationMatrix.multiply(rotationMatrix.multiply(scaleMatrix));
+		//result = translationMatrix.multiply(rotationMatrix.multiply(scaleMatrix));
+
+		result = rotationMatrix.multiply(translationMatrix.multiply(scaleMatrix));
 		
 		return result;
 	}
@@ -172,7 +174,7 @@ public class Matrix4f {
 		
 		for(int y = 0; y < SIZE; y++) {
 			for(int x = 0; x < SIZE; x++) {
-				matrixString += Float.toString(get(x, y));
+				matrixString += Float.toString(get(x, y)) + " ";
 			}
 			matrixString += "\n";
 		}
