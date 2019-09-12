@@ -9,8 +9,7 @@ import java.util.ArrayList;
 import javax.vecmath.Vector3f;
 
 /*
- * This class has the sole purpose of taking in OBJ files and converting them to a Model object, which contains all of the faces and normals specified in that file.
- * Originally, I was planning on making my game look 3d and adding perspective after getting enough done, but I didn't have the time for that. 
+ * This class has the sole purpose of taking in OBJ files and converting them to a Model object, which contains all of the faces and vertices specified in that file.
  */
 
 public class OBJReader {
@@ -44,24 +43,21 @@ public class OBJReader {
 					float z = Float.parseFloat(lineComponents[3])/scaleFactor;
 					vertices.add(new Vertex(new Vector3f(x,y,z)));
 				}		
-				/*else if (line.startsWith("vn ")){
-					float x = Float.parseFloat(lineComponents[1])/scaleFactor;
-					float y = Float.parseFloat(lineComponents[2])/scaleFactor;
-					float z = Float.parseFloat(lineComponents[3])/scaleFactor;
-					model.addNormal(x, y, z);
-				}*/
 				else if (line.startsWith("f ")) {
 					
 					String[] indexList;
 					
-					for(int i = 0; i < 3; i++) {
+					for(int i = 1; i <= 3; i++) {
 						int index = Integer.parseInt(lineComponents[i].split("//")[0]);
 						indices.add(index);
+						
 					}
 					
 				}	
 			}
 			
+		}catch(IndexOutOfBoundsException e){
+			System.err.println("Invalid model. Use a model that is made only out of triangles");
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -80,9 +76,11 @@ public class OBJReader {
 			indexList[i] = indexIntegerList[i].intValue();
 		}
 		
+		Material material = new Material("Triangle.png");
+		material.create();
 		
-		Mesh mesh = new Mesh(vertexList, indexList);
-		
+		Mesh mesh = new Mesh(vertexList, indexList, material);
+		mesh.create();
 		return mesh;
 	}
 
